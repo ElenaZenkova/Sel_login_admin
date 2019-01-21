@@ -9,7 +9,6 @@ const {Builder, By, Key, until} = require('selenium-webdriver');
 
         await driver.findElement(By.css("#box-account-login > div > form > table > tbody > tr:nth-child(5) > td > a")).click()
         await driver.wait(until.titleIs('Create Account | My Store'), 1000);
-
         await driver.findElement(By.name('firstname')).sendKeys('Name',);
         await driver.findElement(By.name('lastname')).sendKeys('Lname',);
         await driver.findElement(By.name('address1')).sendKeys('Street',);
