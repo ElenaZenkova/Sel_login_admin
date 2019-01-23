@@ -7,7 +7,7 @@ const {Builder, By, Key, until} = require('selenium-webdriver');
         await driver.get('http://localhost/litecart/en/');
 
         console.log("--------------------------")
-        let items = await driver.findElements(By.className('image-wrapper'))
+        let items = await driver.findElements(By.className('product'))
         console.log("Товаров всего: " + items.length)
         console.log("--------------------------")
 
