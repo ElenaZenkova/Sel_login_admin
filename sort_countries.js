@@ -44,11 +44,11 @@ const {Builder, By, Key, until} = require('selenium-webdriver');
 
                         if (C1 == C2)
                         {
-                            console.log(i-1 + ": Зоны расположены в алфавитном порядке")
+                            console.log(i + ": Зоны расположены в алфавитном порядке")
                         }
                         else
                             {
-                            console.log(i-1 + ": Зоны не отсортированы")
+                            console.log(i + ": Зоны не отсортированы")
                             }
 
                         await driver.findElement(By.css("li#app-:nth-of-type(3)")).click();
