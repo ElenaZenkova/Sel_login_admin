@@ -29,68 +29,65 @@ const {Builder, By, Key, until} = require('selenium-webdriver');
 
         //b
 
-        await driver.findElement(By.css('#content > form > table > tbody > tr:nth-child(39) > td:nth-child(5) > a')).click();
+            for (let i = 2; i < 240; i++)
+            {
 
-        let Can1 = await driver.findElements(By.css('#table-zones > tbody > tr > td:nth-child(3)'));
+                    let zone = await driver.findElement(By.css('#content > form > table > tbody > tr:nth-child('+ i +') > td:nth-child(6)')).getText();
 
-        let Can2 = Can1.sort();
+                    if (zone.valueOf() > 0)
+                    {
+                        await driver.findElement(By.css('#content > form > table > tbody > tr:nth-child(' + i + ') > td:nth-child(5) > a')).click();
 
-        if (Can1 == Can2)
-        {
-            console.log("==================================================")
-            console.log("Зоны_1 Канады расположены в алфавитном порядке")
-        }
-        else {
-            console.log("Зоны_1 Канады не отсортированы")
-        }
+                        let C1 = await driver.findElements(By.css('#table-zones > tbody > tr > td:nth-child(3)'));
 
-        await driver.findElement(By.css("li#app-:nth-of-type(3)")).click();
+                        let C2 = C1.sort();
 
-        await driver.findElement(By.css('#content > form > table > tbody > tr:nth-child(225) > td:nth-child(5) > a')).click();
+                        if (C1 == C2)
+                        {
+                            console.log(i-1 + ": Зоны расположены в алфавитном порядке")
+                        }
+                        else
+                            {
+                            console.log(i-1 + ": Зоны не отсортированы")
+                            }
 
-        let Usa1 = await driver.findElements(By.css('#table-zones > tbody > tr > td:nth-child(3)'));
-
-        let Usa2 = Usa1.sort();
-
-        if (Usa1 == Usa2)
-        {
-            console.log("==================================================")
-            console.log("Зоны_1 США расположены в алфавитном порядке")
-        }
-        else {
-            console.log("Зоны_1 США не отсортированы")
-        }
-
+                        await driver.findElement(By.css("li#app-:nth-of-type(3)")).click();
+                    }
+                    else
+                    {
+                        console.log(i + ": Зон нет")
+                    }
+            }
 
 //2 part
 
         await driver.get('http://localhost/litecart/admin/?app=geo_zones&doc=geo_zones');
 
         await driver.findElement(By.css('#content > form > table > tbody > tr:nth-child(2) > td:nth-child(3) > a')).click();
-        let c1 = await driver.findElements(By.css('#table-zones > tbody > tr > td:nth-child(3) > select'));
-        let c2 = c1.sort();
+        let Can1 = await driver.findElements(By.css('#table-zones > tbody > tr > td:nth-child(3) > select'));
+        let Can2 = Can1.sort();
 
-        if (c1 == c2)
+        if (Can1 == Can2)
         {
             console.log("==================================================")
-            console.log("Зоны_2 Канады расположены в алфавитном порядке")
+            console.log("Зоны Канады расположены в алфавитном порядке")
         }
         else {
-            console.log("Зоны_2 Канады не отсортированы")
+            console.log("Зоны Канады не отсортированы")
         }
 
         await driver.findElement(By.css("li#app-:nth-of-type(6)")).click();
         await driver.findElement(By.css('#content > form > table > tbody > tr:nth-child(3) > td:nth-child(3) > a')).click();
-        let u1 = await driver.findElements(By.css('#table-zones > tbody > tr > td:nth-child(3) > select'));
-        let u2 = u1.sort();
+        let Usa1 = await driver.findElements(By.css('#table-zones > tbody > tr > td:nth-child(3) > select'));
+        let Usa2 = Usa1.sort();
 
-        if (u1 == u2)
+        if (Usa1 == Usa2)
         {
             console.log("==================================================")
-            console.log("Зоны_2 США расположены в алфавитном порядке")
+            console.log("Зоны США расположены в алфавитном порядке")
         }
         else {
-            console.log("Зоны_2 США не отсортированы")
+            console.log("Зоны США не отсортированы")
         }
 
     }
