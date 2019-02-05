@@ -13,7 +13,7 @@ const {Builder, By, Key, until} = require('selenium-webdriver');
         //a
 
         await driver.findElement(By.css("li#app-:nth-of-type(3)")).click(); //countries
-        let list1 = await driver.findElements(By.css('#content > form > table > tbody > tr > td:nth-child(5) > a'));
+        let list1 = await driver.findElements(By.css('tr.row'));
 
         let list2 = list1.sort();
 
@@ -29,9 +29,8 @@ const {Builder, By, Key, until} = require('selenium-webdriver');
 
         //b
 
-            for (let i = 2; i < 240; i++)
+            for (let i = 2; i < list1.length +2; i++)
             {
-
                     let zone = await driver.findElement(By.css('#content > form > table > tbody > tr:nth-child('+ i +') > td:nth-child(6)')).getText();
 
                     if (zone.valueOf() > 0)
@@ -62,32 +61,37 @@ const {Builder, By, Key, until} = require('selenium-webdriver');
 //2 part
 
         await driver.get('http://localhost/litecart/admin/?app=geo_zones&doc=geo_zones');
+        await driver.wait(until.titleIs('Geo Zones | My Store'), 1000);
 
-        await driver.findElement(By.css('#content > form > table > tbody > tr:nth-child(2) > td:nth-child(3) > a')).click();
-        let Can1 = await driver.findElements(By.css('#table-zones > tbody > tr > td:nth-child(3) > select'));
-        let Can2 = Can1.sort();
+        let list3 = await driver.findElements(By.css('tr.row'));
 
-        if (Can1 == Can2)
+        for (let j = 2; j < list3.length +2; j++)
         {
-            console.log("==================================================")
-            console.log("Зоны Канады расположены в алфавитном порядке")
-        }
-        else {
-            console.log("Зоны Канады не отсортированы")
-        }
+            let geo = await driver.findElement(By.css('#content > form > table > tbody > tr:nth-child('+ j +') > td:nth-child(4)')).getText();
 
-        await driver.findElement(By.css("li#app-:nth-of-type(6)")).click();
-        await driver.findElement(By.css('#content > form > table > tbody > tr:nth-child(3) > td:nth-child(3) > a')).click();
-        let Usa1 = await driver.findElements(By.css('#table-zones > tbody > tr > td:nth-child(3) > select'));
-        let Usa2 = Usa1.sort();
+            if (geo.valueOf() > 0)
+            {
+                await driver.findElement(By.css('#content > form > table > tbody > tr:nth-child(' + j + ') > td:nth-child(3) > a')).click();
 
-        if (Usa1 == Usa2)
-        {
-            console.log("==================================================")
-            console.log("Зоны США расположены в алфавитном порядке")
-        }
-        else {
-            console.log("Зоны США не отсортированы")
+                let G1 = await driver.findElements(By.css('#table-zones > tbody > tr > td:nth-child(3) > select'));
+
+                let G2 = G1.sort();
+
+                if (G1 == G2)
+                {
+                    console.log(j + ": Геозоны расположены в алфавитном порядке")
+                }
+                else
+                {
+                    console.log(j + ": Геозоны не отсортированы")
+                }
+
+                await driver.findElement(By.css("li#app-:nth-of-type(6)")).click();
+            }
+            else
+            {
+                console.log(j + ": Геозон нет")
+            }
         }
 
     }
